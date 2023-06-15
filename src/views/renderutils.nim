@@ -26,11 +26,11 @@ proc icon*(icon: string; text=""; title=""; class=""; href=""): VNode =
 proc linkUser*(user: User, class=""): VNode =
   let
     isName = "username" notin class
-    href = "/" & user.username
+    href = "https://twitter.com/" & user.username
     nameText = if isName: user.fullname
                else: "@" & user.username
 
-  buildHtml(a(href=href, class=class, title=nameText)):
+  buildHtml(a(href=href, class=class, title=nameText, target="_blank")):
     text nameText
     if isName and user.verified:
       icon "ok", class="verified-icon", title="Verified account"

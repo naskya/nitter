@@ -25,7 +25,7 @@ proc renderHeader(tweet: Tweet; retweet: string; prefs: Prefs): VNode =
         span: icon "pin", "Pinned Tweet"
 
     tdiv(class="tweet-header"):
-      a(class="tweet-avatar", href=("/" & tweet.user.username)):
+      a(class="tweet-avatar", href=("https://twitter.com/" & tweet.user.username), target="_blank"):
         var size = "_bigger"
         if not prefs.autoplayGifs and tweet.user.userPic.endsWith("gif"):
           size = "_400x400"
@@ -37,7 +37,7 @@ proc renderHeader(tweet: Tweet; retweet: string; prefs: Prefs): VNode =
           linkUser(tweet.user, class="username")
 
         span(class="tweet-date"):
-          a(href=getLink(tweet), title=tweet.getTime):
+          a(href=getLink(tweet), title=tweet.getTime, target="_blank"):
             text tweet.getShortTime
 
 proc renderAlbum(tweet: Tweet): VNode =
@@ -234,7 +234,7 @@ proc renderQuote(quote: Tweet; prefs: Prefs; path: string): VNode =
           text "This tweet is unavailable"
 
   buildHtml(tdiv(class="quote quote-big")):
-    a(class="quote-link", href=getLink(quote))
+    a(class="quote-link", href=getLink(quote), target="_blank")
 
     tdiv(class="tweet-name-row"):
       tdiv(class="fullname-and-username"):
