@@ -132,8 +132,6 @@ proc renderMain*(body: VNode; req: Request; cfg: Config; prefs=defaultPrefs;
                rss, canonical)
 
     body:
-      renderNavbar(cfg, req, rss, canonical)
-
       tdiv(class="container"):
         body
 

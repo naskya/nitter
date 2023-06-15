@@ -92,13 +92,6 @@ proc renderTweetSearch*(results: Result[Tweet]; prefs: Prefs; path: string;
                         pinned=none(Tweet)): VNode =
   let query = results.query
   buildHtml(tdiv(class="timeline-container")):
-    if query.fromUser.len > 1:
-      tdiv(class="timeline-header"):
-        text query.fromUser.join(" | ")
-
-    if query.fromUser.len > 0:
-      renderProfileTabs(query, query.fromUser.join(","))
-
     if query.fromUser.len == 0 or query.kind == tweets:
       tdiv(class="timeline-header"):
         renderSearchPanel(query)
