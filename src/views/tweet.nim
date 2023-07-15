@@ -350,9 +350,9 @@ proc renderTweet*(tweet: Tweet; prefs: Prefs; path: string; class=""; index=0;
         a(class="show-thread", href=("/i/status/" & $tweet.threadId)):
           text "Show this thread"
 
-proc renderTweetEmbed*(tweet: Tweet; path: string; prefs: Prefs; cfg: Config; req: Request): string =
+proc renderTweetEmbed*(tweet: Tweet; path: string; prefs: Prefs; cfg: Config; req: Request; color=""): string =
   let node = buildHtml(html(lang="en")):
-    renderHead(prefs, cfg, req)
+    renderHead(prefs, cfg, req, color=color)
 
     body:
       tdiv(class="tweet-embed"):

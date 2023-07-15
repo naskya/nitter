@@ -38,7 +38,7 @@ proc renderNavbar(cfg: Config; req: Request; rss, canonical: string): VNode =
 
 proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
                  video=""; images: seq[string] = @[]; banner=""; ogTitle="";
-                 rss=""; canonical=""): VNode =
+                 rss=""; canonical=""; color=""): VNode =
   var theme = prefs.theme.toTheme
   if "theme" in req.params:
     theme = req.params["theme"].toTheme
@@ -56,7 +56,12 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
     link(rel="stylesheet", type="text/css", href="/css/fontello.css?v=2")
 
     if theme.len > 0:
-      link(rel="stylesheet", type="text/css", href=(&"/css/themes/{theme}.css"))
+      if color == "dark":
+        link(rel="stylesheet", type="text/css", href=("/css/themes/twitter_dark.css"))
+      elif color == "light":
+        link(rel="stylesheet", type="text/css", href=("/css/themes/twitter.css"))
+      else:
+        link(rel="stylesheet", type="text/css", href=(&"/css/themes/{theme}.css"))
 
     link(rel="apple-touch-icon", sizes="180x180", href="/apple-touch-icon.png")
     link(rel="icon", type="image/png", sizes="32x32", href="/favicon-32x32.png")
@@ -123,13 +128,13 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
 
 proc renderMain*(body: VNode; req: Request; cfg: Config; prefs=defaultPrefs;
                  titleText=""; desc=""; ogTitle=""; rss=""; video="";
-                 images: seq[string] = @[]; banner=""): string =
+                 images: seq[string] = @[]; banner=""; color=""): string =
 
   let canonical = getTwitterLink(req.path, req.params)
 
   let node = buildHtml(html(lang="en")):
     renderHead(prefs, cfg, req, titleText, desc, video, images, banner, ogTitle,
-               rss, canonical)
+               rss, canonical, color)
 
     body:
       tdiv(class="container"):

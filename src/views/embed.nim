@@ -8,12 +8,12 @@ import general, tweet
 
 const doctype = "<!DOCTYPE html>\n"
 
-proc renderVideoEmbed*(tweet: Tweet; cfg: Config; req: Request): string =
+proc renderVideoEmbed*(tweet: Tweet; cfg: Config; req: Request; color=""): string =
   let thumb = get(tweet.video).thumb
   let vidUrl = getVideoEmbed(cfg, tweet.id)
   let prefs = Prefs(hlsPlayback: true)
   let node = buildHtml(html(lang="en")):
-    renderHead(prefs, cfg, req, video=vidUrl, images=(@[thumb]))
+    renderHead(prefs, cfg, req, video=vidUrl, images=(@[thumb]), color=color)
 
     body:
       tdiv(class="embed-video"):

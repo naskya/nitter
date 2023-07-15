@@ -28,8 +28,9 @@ let
   illegalXmlRegex = re"(*UTF8)[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]"
 
 proc getUrlPrefix*(cfg: Config): string =
-  if cfg.useHttps: https & cfg.hostname
-  else: "http://" & cfg.hostname
+  #if cfg.useHttps: https & cfg.hostname
+  #else: "http://" & cfg.hostname
+  ""
 
 proc shortLink*(text: string; length=28): string =
   result = text.replace(wwwRegex, "")

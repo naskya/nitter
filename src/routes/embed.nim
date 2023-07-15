@@ -27,6 +27,17 @@ proc createEmbedRouter*(cfg: Config) =
 
       resp renderTweetEmbed(convo.tweet, path, prefs, cfg, request)
 
+    get "/@user/status/@id/embed/@color":
+      let
+        convo = await getTweet(@"id")
+        prefs = cookiePrefs()
+        path = getPath()
+
+      if convo == nil or convo.tweet == nil:
+        resp Http404
+
+      resp renderTweetEmbed(convo.tweet, path, prefs, cfg, request, color= @"color")
+
     get "/embed/Tweet.html":
       let id = @"id"
 
